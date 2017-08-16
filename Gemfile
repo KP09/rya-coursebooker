@@ -1,3 +1,7 @@
+# Ruby version
+ruby '2.3.3'
+
+# Source for ruby gems
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
