@@ -14,8 +14,7 @@
 
   <body>
     <!-- Notices and alerts (originally from Devise setup) -->
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%= render 'shared/flashes' %>
     <!-- Yield main page content -->
     <%= yield %>
   </body>
