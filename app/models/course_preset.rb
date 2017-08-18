@@ -1,0 +1,2 @@
+class CoursePreset < ApplicationRecord
+end
