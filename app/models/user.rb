@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   # Associations
+  has_one :customer_profile
+  has_one :admin_profile
   has_many :bookings
 
   # Validations

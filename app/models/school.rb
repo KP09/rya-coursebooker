@@ -1,9 +1,9 @@
 class School < ApplicationRecord
   # Associations
-  has_many :school_admins
+  has_many :admin_profiles
   has_many :courses
   has_many :course_presets
-  has_many :location_presets
+  has_many :course_locations
 
   # Validations
   validates :name, presence: true
