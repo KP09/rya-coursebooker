@@ -7,7 +7,6 @@ class User < ApplicationRecord
   # Validations
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :phone_number, presence: true
 
   # Devise
   # Include default devise modules. Others available are:
