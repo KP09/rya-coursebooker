@@ -10,6 +10,15 @@ class CourseLocationsController < ApplicationController
 
   def index
     @course_locations = CourseLocation.where(school_id: @school)
+    # Use the Gmaps4rails gem to construct the markers
+    locations_with_lat_long = @course_locations.reject { |location| location.latitude == nil || location.longitude == nil }
+    @coordinates_hash = Gmaps4rails.build_markers(locations_with_lat_long) do |course_location, marker|
+      if course_location.latitude != nil && course_location.longitude != nil
+        marker.lat course_location.latitude
+        marker.lng course_location.longitude
+      end
+      # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
+    end
   end
 
   def show
@@ -59,6 +68,6 @@ class CourseLocationsController < ApplicationController
   end
 
   def course_location_params
-    params.require(:course_location).permit(:name, :description)
+    params.require(:course_location).permit(:name, :description, :address)
   end
 end

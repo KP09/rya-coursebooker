@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RyaCoursebooker</title>
+    <title>Marine Course Booker</title>
     <%= csrf_meta_tags %>
 
     <!-- For detecting device width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- Application CSS -->
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <!-- Navbar -->
     <%= render 'shared/navbar' %>
+
     <!-- Notices and alerts (originally from Devise setup) -->
     <%= render 'shared/flashes' %>
+
     <!-- Yield main page content -->
     <%= yield %>
+
+    <!-- Page-specific Javascript to be loaded before application JS -->
+    <%= yield(:before_js) %>
+
+    <!-- Application-wide Javascript -->
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Page-specific Javascript to be loaded after application JS -->
+    <%= yield(:after_js) %>
   </body>
 </html>

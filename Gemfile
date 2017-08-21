@@ -54,8 +54,14 @@ gem 'jquery-rails'
 # Devise for User authentication
 gem 'devise'
 
-# Geocoder to geocode locations
+# Geocoder to geocode addresses
 gem 'geocoder'
+
+# For dynamic google maps
+gem "gmaps4rails"
+source 'https://rails-assets.org' do
+  gem "rails-assets-underscore"
+end
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'

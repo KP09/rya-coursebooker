@@ -6,4 +6,8 @@ class CourseLocation < ApplicationRecord
   # Validations
   validates :name, presence: true
   validates :description, presence: true
+
+  # Geocoding
+  geocoded_by :address
+  after_validation :geocode, if: :address_changed?
 end

@@ -1,8 +1,34 @@
 <%= link_to "Add a new course location", new_school_course_location_path %>
 <h1>Your course locations</h1>
+<div id="map" style="width: 50%; height: 600px;"></div>
 <% @course_locations.each do |course_location| %>
   <h2><%= course_location.name %></h2>
   <%= link_to "View", school_course_location_path(@school, course_location) %>
   <%= link_to "Edit", edit_school_course_location_path(@school, course_location) %>
   <%= link_to "Delete", school_course_location_path(@school, course_location), method: :delete %>
+<% end %>
+
+<% content_for(:before_js) do %>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5IQZ_WJVk5y7WD7no9vE88zri_K575_g&callback=initMap"
+  type="text/javascript"></script>
+  <script src="https://cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/markerclusterer/src/markerclusterer_compiled.js"></script>
+  <script src="https://cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js"></script>
+<% end %>
+
+<% content_for(:after_js) do %>
+  <%= javascript_tag do %>
+    $(document).ready(function() {
+      var handler = Gmaps.build('Google');
+      handler.buildMap({ internal: { id: 'map' } }, function() {
+        markers = handler.addMarkers(<%= raw @coordinates_hash.to_json %>);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+        if (markers.length == 0) {
+          handler.getMap().setZoom(2);
+        } else if (markers.length == 1) {
+          handler.getMap().setZoom(14);
+        }
+      });
+    });
+  <% end %>
 <% end %>
