@@ -54,6 +54,9 @@ gem 'jquery-rails'
 # Devise for User authentication
 gem 'devise'
 
+# Geocoder to geocode locations
+gem 'geocoder'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 
