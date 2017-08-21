@@ -1,0 +1,9 @@
+<%= link_to "Manage your Course Presets", school_course_presets_path %>
+<h1>All your courses</h1>
+<ul>
+  <% @courses.each do |course| %>
+    <li>
+      <%= course.name %>
+    </li>
+  <% end %>
+</ul>

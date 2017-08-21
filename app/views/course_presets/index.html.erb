@@ -1,0 +1,8 @@
+<%= link_to "Add a new course preset", new_school_course_preset_path %>
+<h1>Your course presets</h1>
+<% @course_presets.each do |course_preset| %>
+  <h2><%= course_preset.name %></h2>
+  <%= link_to "View", school_course_preset_path(@school, course_preset) %>
+  <%= link_to "Edit", edit_school_course_preset_path(@school, course_preset) %>
+  <%= link_to "Delete", school_course_preset_path(@school, course_preset), method: :delete %>
+<% end %>
