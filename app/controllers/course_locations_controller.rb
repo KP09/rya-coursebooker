@@ -10,8 +10,9 @@ class CourseLocationsController < ApplicationController
 
   def index
     @course_locations = CourseLocation.where(school_id: @school)
-    # Use the Gmaps4rails gem to construct the markers
+    # Reject locations where either the lat or long is nil
     locations_with_lat_long = @course_locations.reject { |location| location.latitude == nil || location.longitude == nil }
+    # Use the Gmaps4rails gem to construct the markers
     @coordinates_hash = Gmaps4rails.build_markers(locations_with_lat_long) do |course_location, marker|
       if course_location.latitude != nil && course_location.longitude != nil
         marker.lat course_location.latitude
