@@ -1,0 +1,2 @@
+module CoursePresetsHelper
+end
