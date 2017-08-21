@@ -2,6 +2,7 @@ class CoursePresetsController < ApplicationController
   # Authenticate the user before any actions inside this controller
   before_action :authenticate_user!
 
+  # Uses a private method to find the course_preset from the params
   before_action :find_course_preset, only: [:show, :edit, :update, :destroy]
 
   # Uses a private method to find the school from the params
@@ -45,7 +46,6 @@ class CoursePresetsController < ApplicationController
     else
       render :index
     end
-
   end
 
   private

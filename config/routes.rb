@@ -15,7 +15,9 @@ Rails.application.routes.draw do
     # Courses nested within schools
     resources :courses, only: [:index]
     # Course presets nested within Schools
-    resources :course_presets, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    resources :course_presets
+    # Course locations nested within schools
+    resources :course_locations
   end
 
 end

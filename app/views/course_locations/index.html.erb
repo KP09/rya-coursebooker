@@ -1,0 +1,8 @@
+<%= link_to "Add a new course location", new_school_course_location_path %>
+<h1>Your course locations</h1>
+<% @course_locations.each do |course_location| %>
+  <h2><%= course_location.name %></h2>
+  <%= link_to "View", school_course_location_path(@school, course_location) %>
+  <%= link_to "Edit", edit_school_course_location_path(@school, course_location) %>
+  <%= link_to "Delete", school_course_location_path(@school, course_location), method: :delete %>
+<% end %>
