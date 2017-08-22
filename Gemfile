@@ -57,6 +57,9 @@ gem 'jquery-rails'
 # Devise for User authentication
 gem 'devise'
 
+# Pundit for User authorization
+gem 'pundit'
+
 # Geocoder to geocode addresses
 gem 'geocoder'
 
