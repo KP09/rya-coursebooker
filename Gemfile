@@ -63,6 +63,9 @@ source 'https://rails-assets.org' do
   gem "rails-assets-underscore"
 end
 
+# Facebook login
+gem 'omniauth-facebook'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 
