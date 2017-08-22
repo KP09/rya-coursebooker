@@ -8,12 +8,12 @@
   <%= link_to "Delete", school_course_location_path(@school, course_location), method: :delete %>
 <% end %>
 
-<% content_for(:before_js) do %>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5IQZ_WJVk5y7WD7no9vE88zri_K575_g&callback=initMap"
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5IQZ_WJVk5y7WD7no9vE88zri_K575_g"
   type="text/javascript"></script>
   <script src="https://cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/markerclusterer/src/markerclusterer_compiled.js"></script>
   <script src="https://cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js"></script>
-<% end %>
+
 
 <% content_for(:after_js) do %>
   <%= javascript_tag do %>
