@@ -18,6 +18,9 @@ gem 'puma', '~> 3.7'
 # Use PostgreSQL as database
 gem 'pg'
 
+# Figaro to set production environment settings
+gem 'figaro'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
