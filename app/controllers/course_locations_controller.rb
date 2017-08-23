@@ -17,9 +17,8 @@ class CourseLocationsController < ApplicationController
       if course_location.latitude != nil && course_location.longitude != nil
         marker.lat course_location.latitude
         marker.lng course_location.longitude
-        marker.infowindow render_to_string(partial: "course_locations/map_info_window.html.erb)", locals: { location: course_location })
+        marker.infowindow render_to_string(partial: "course_locations/map_info_window", locals: { location: course_location })
       end
-      # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
     end
 
   end
