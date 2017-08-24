@@ -7,8 +7,12 @@
 
     <% if user_signed_in? %>
 
-      <% if user_is_admin? %>
-        <%= link_to "School Dashboard", "#", class: "navbar-wagon-item navbar-wagon-link" %>
+      <% if current_user_is_application_admin? %>
+        <%= link_to "Active Admin", admin_root_path, class: "navbar-wagon-item navbar-wagon-link" %>
+      <% end %>
+
+      <% if current_user_is_school_admin? %>
+        <%= link_to "School dashboard", school_dashboard_path(current_user.school), class: "navbar-wagon-item navbar-wagon-link" %>
       <% end %>
 
       <!-- Links when logged in -->

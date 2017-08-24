@@ -12,12 +12,11 @@ Rails.application.routes.draw do
 
   # School resources
   resources :schools, only: [:show] do
-    # Courses nested within schools
+    # Nested within schools
     resources :courses, only: [:index]
-    # Course presets nested within Schools
     resources :course_presets
-    # Course locations nested within schools
     resources :course_locations
+    get '/dashboard', to: 'school_dashboard#index'
   end
 
 end
