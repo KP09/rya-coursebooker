@@ -1,0 +1,4 @@
+<h2><%= course_location.name %></h2>
+<%= link_to "View", school_course_location_path(school, course_location) %>
+<%= link_to "Edit", edit_school_course_location_path(school, course_location) %>
+<%= link_to "Delete", school_course_location_path(school, course_location), method: :delete %>

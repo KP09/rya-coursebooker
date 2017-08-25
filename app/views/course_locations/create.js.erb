@@ -1,0 +1,8 @@
+<% if @course_location.errors.any? %>
+  $('#new_course_location_form').html("<%= j render 'course_locations/form', school: @school, course_location: @course_location %>");
+<% else %>
+  const new_course_location = $("<%= j render 'course_locations/course_location', school: @school, course_location: @course_location %>").hide();
+  $("#course_locations").prepend(new_course_location);
+  new_course_location.slideDown();
+  $('#new_course_location_form').html("<%= j render 'course_locations/form', school: @school, course_location: CourseLocation.new %>");
+<% end %>

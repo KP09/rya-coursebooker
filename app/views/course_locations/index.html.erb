@@ -1,12 +1,25 @@
+<%= link_to "Back to Dashboard", school_dashboard_path %>
 <%= link_to "Add a new course location", new_school_course_location_path %>
-<h1>Your course locations</h1>
-<div id="map" style="width: 50%; height: 600px;"></div>
-<% @course_locations.each do |course_location| %>
-  <h2><%= course_location.name %></h2>
-  <%= link_to "View", school_course_location_path(@school, course_location) %>
-  <%= link_to "Edit", edit_school_course_location_path(@school, course_location) %>
-  <%= link_to "Delete", school_course_location_path(@school, course_location), method: :delete %>
-<% end %>
+<h1>Course locations</h1>
+
+<h2>Add a new course location</h2>
+<div id="new_course_location_form">
+  <%= render 'form', school: @school, course_location: @course_location %>
+</div>
+
+
+<h2>Your course locations</h2>
+<!-- <div id="map" style="width: 50%; height: 600px;"></div> -->
+
+<div id="map" style='width: 800px; height: 400px;'></div>
+<div id='sidebar_container'>
+</div>
+
+<div id="course_locations">
+  <% @course_locations.each do |course_location| %>
+    <%= render 'course_locations/course_location', school: @school, course_location: course_location %>
+  <% end %>
+</div>
 
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5IQZ_WJVk5y7WD7no9vE88zri_K575_g"
@@ -18,16 +31,56 @@
 <% content_for(:after_js) do %>
   <%= javascript_tag do %>
     $(document).ready(function() {
-      var handler = Gmaps.build('Google');
-      handler.buildMap({ internal: { id: 'map' } }, function() {
-        markers = handler.addMarkers(<%= raw @coordinates_hash.to_json %>);
+      <!-- Creates sidebar based on a json element -->
+      function createSidebarLi(json){
+        return ("<li><a>" + json.name + "</a></li>");
+      };
+
+      <!-- Binding list items to the markers -->
+      function bindLiToMarker($li, marker){
+        $li.on('click', function(){
+          handler.getMap().setZoom(10);
+          marker.setMap(handler.getMap()); //because clusterer removes map property from marker
+          marker.panTo();
+          google.maps.event.trigger(marker.getServiceObject(), 'click');
+        })
+      };
+
+      <!-- Creates the sidebar by creating an LI for each json element -->
+      function createSidebar(json_array){
+        _.each(json_array, function(json){
+          var $li = $( createSidebarLi(json) );
+          $li.appendTo('#sidebar_container');
+          bindLiToMarker($li, json.marker);
+        });
+      };
+
+      <!-- TEST -->
+      function markerAlert(){
+        console.log("Hello")
+      };
+
+      <!-- Adds event listeners to markers -->
+      function addListenersToMarkers(json_array){
+        _.each(json_array, function(json){
+          const marker = json.marker
+          google.maps.event.addListener(marker, "click", markerAlert);
+        });
+      };
+
+      handler = Gmaps.build('Google');
+      handler.buildMap({ internal: {id: 'map'}}, function(){
+        var json_array = <%= raw @coordinates_hash.to_json %>;
+
+        var markers = handler.addMarkers(json_array);
+
+        _.each(json_array, function(json, index){
+          json.marker = markers[index];
+        });
+        createSidebar(json_array);
+        addListenersToMarkers(json_array);
         handler.bounds.extendWith(markers);
         handler.fitMapToBounds();
-        if (markers.length == 0) {
-          handler.getMap().setZoom(2);
-        } else if (markers.length == 1) {
-          handler.getMap().setZoom(14);
-        }
       });
     });
   <% end %>

@@ -9,18 +9,29 @@ class CourseLocationsController < ApplicationController
   before_action :find_school, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
   def index
+    @course_location = CourseLocation.new
     @course_locations = CourseLocation.where(school_id: @school)
     # Reject locations where either the lat or long is nil
     locations_with_lat_long = @course_locations.reject { |location| location.latitude == nil || location.longitude == nil }
     # Use the Gmaps4rails gem to construct the markers
-    @coordinates_hash = Gmaps4rails.build_markers(locations_with_lat_long) do |course_location, marker|
-      if course_location.latitude != nil && course_location.longitude != nil
-        marker.lat course_location.latitude
-        marker.lng course_location.longitude
-        marker.infowindow render_to_string(partial: "course_locations/map_info_window", locals: { location: course_location })
-      end
-    end
+    # @coordinates_hash = Gmaps4rails.build_markers(locations_with_lat_long) do |course_location, marker|
+    #   if course_location.latitude != nil && course_location.longitude != nil
+    #     marker.lat course_location.latitude
+    #     marker.lng course_location.longitude
+    #     marker.name course_location.name
+    #     marker.infowindow render_to_string(partial: "course_locations/map_info_window", locals: { location: course_location })
+    #   end
+    # end
 
+    @coordinates_hash = []
+    locations_with_lat_long.each do |location|
+      @coordinates_hash << {
+        lat: location.latitude,
+        lng: location.longitude,
+        name: location.name,
+        infowindow: render_to_string(partial: "course_locations/map_info_window", locals: { location: location })
+      }
+    end
   end
 
   def show
@@ -34,9 +45,15 @@ class CourseLocationsController < ApplicationController
     @course_location = CourseLocation.new(course_location_params)
     @course_location.school_id = @school.id
     if @course_location.save
-      redirect_to school_course_location_path(@school, @course_location)
+      respond_to do |format|
+        format.html { redirect_to school_course_locations_path(@school) }
+        format.js
+      end
     else
-      render 'new'
+      respond_to do |format|
+        format.html { render 'course_locations#show' }
+        format.js
+      end
     end
   end
 
@@ -53,9 +70,15 @@ class CourseLocationsController < ApplicationController
 
   def destroy
     if @course_location.destroy
-      redirect_to school_course_locations_path(@school)
+      respond_to do |format|
+        format.html { redirect_to school_course_locations_path(@school) }
+        format.js
+      end
     else
-      render :index
+      respond_to do |format|
+        format.html { redirect_to school_course_locations_path(@school) }
+        format.js
+      end
     end
   end
 

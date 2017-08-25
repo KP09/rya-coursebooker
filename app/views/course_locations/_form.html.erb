@@ -1,4 +1,4 @@
-<%= simple_form_for [school, course_location] do |f| %>
+<%= simple_form_for([school, course_location], remote: true) do |f| %>
   <%= f.input :name %>
   <%= f.input :description %>
   <%= f.input :address %>
