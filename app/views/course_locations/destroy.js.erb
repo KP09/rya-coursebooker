@@ -1,0 +1,5 @@
+<% if @course_locations.errors.any? %>
+  $("#<%= course_location.id %>").html('<%= j render 'course_locations/course_location', school: @school, course_location: @course_location %>')
+<% else %>
+  $("#<%= course_location.id %>").slideUp()
+<% end %>

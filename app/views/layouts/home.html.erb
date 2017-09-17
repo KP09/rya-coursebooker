@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Marine Course Booker</title>
+    <%= csrf_meta_tags %>
+
+    <!-- For detecting device width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <!-- Application CSS -->
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+  </head>
+
+  <body>
+    <div id="homepage-background" style="background-image: url('<%= image_path 'horizon.jpeg' %>')">
+      <div id="homepage-text">
+        <p>Coming soon, to a horizon near you</p>
+        <h1>Marine Course Booker</h1>
+        <h2>Easily find and book RYA and MCA accredited courses</p>
+      </div>
+    </div>
+  </body>
+</html>

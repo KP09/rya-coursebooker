@@ -1,1 +1,34 @@
 // Specific CSS for your home-page
+#homepage-background {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: left;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: 'Avenir';
+  color: white;
+  padding: 20px;
+}
+
+#homepage-text {
+  padding: 0 30% 20% 0;
+}
+
+#homepage-text p {
+  font-family: 'Sue Ellen Francisco', cursive;
+  font-size: 30px;
+}
+
+#homepage-text {
+  h1 {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 70px;
+  }
+  h2 {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 30px;
+  }
+}

@@ -17,7 +17,9 @@
 
 <div id="course_locations">
   <% @course_locations.each do |course_location| %>
-    <%= render 'course_locations/course_location', school: @school, course_location: course_location %>
+    <div id="<%= course_location.id %>">
+      <%= render 'course_locations/course_location', school: @school, course_location: course_location %>
+    </div>
   <% end %>
 </div>
 
@@ -29,14 +31,13 @@
 
 
 <% content_for(:after_js) do %>
-  <%= javascript_tag do %>
+  <script>
     $(document).ready(function() {
-      <!-- Creates sidebar based on a json element -->
+
       function createSidebarLi(json){
         return ("<li><a>" + json.name + "</a></li>");
       };
 
-      <!-- Binding list items to the markers -->
       function bindLiToMarker($li, marker){
         $li.on('click', function(){
           handler.getMap().setZoom(10);
@@ -46,7 +47,6 @@
         })
       };
 
-      <!-- Creates the sidebar by creating an LI for each json element -->
       function createSidebar(json_array){
         _.each(json_array, function(json){
           var $li = $( createSidebarLi(json) );
@@ -55,16 +55,9 @@
         });
       };
 
-      <!-- TEST -->
-      function markerAlert(){
-        console.log("Hello")
-      };
-
-      <!-- Adds event listeners to markers -->
       function addListenersToMarkers(json_array){
         _.each(json_array, function(json){
           const marker = json.marker
-          google.maps.event.addListener(marker, "click", markerAlert);
         });
       };
 
@@ -81,7 +74,8 @@
         addListenersToMarkers(json_array);
         handler.bounds.extendWith(markers);
         handler.fitMapToBounds();
+        });
       });
-    });
-  <% end %>
+
+  </script>
 <% end %>
